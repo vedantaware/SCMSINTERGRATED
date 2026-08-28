@@ -1,0 +1,32 @@
+name: Load SCMS mobile CSS
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'backend/frontend/mobile-responsive.css'
+      - '.github/workflows/mobile-css.yml'
+permissions:
+  contents: write
+jobs:
+  inject-mobile-css:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inject stylesheet link
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('backend/frontend/index.html')
+          s = p.read_text(encoding='utf-8')
+          link = '<link rel="stylesheet" href="/mobile-responsive.css">'
+          if link not in s:
+              s = s.replace('</head>', f'    {link}\n</head>', 1)
+              p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit injection
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add backend/frontend/index.html
+          git diff --cached --quiet || git commit -m 'Load mobile responsive stylesheet'
+          git push
