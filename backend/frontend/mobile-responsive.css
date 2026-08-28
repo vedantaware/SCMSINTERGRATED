@@ -1,40 +1,156 @@
-/* SCMS mobile responsiveness — additive only */
-html, body { max-width: 100%; }
-@media (max-width: 768px) {
-  body { height: auto; min-height: 100vh; overflow-x: hidden; overflow-y: auto; }
-  #login-screen { position: fixed; min-height: 100dvh; padding: 16px; overflow-y: auto; }
-  .login-box { width: min(100%, 430px); max-width: none; padding: 2rem 1.25rem; border-radius: 20px; }
-  .app-wrapper { margin: 0; width: 100%; min-height: 100dvh; height: auto; border-radius: 0; padding: 8px; display: block; }
-  .app-wrapper::before { border-radius: 0; }
-  .app-inner { width: 100%; min-height: calc(100dvh - 16px); height: auto; border-radius: 18px; overflow: visible; }
-  .app-inner, .app-inner * { max-width: 100%; }
-  .sidebar { width: 100%; max-width: none; position: relative; height: auto; min-height: 0; border-radius: 16px; }
-  .main-content { width: 100%; min-width: 0; overflow: visible; }
-  .topbar, .header, .page-header { flex-wrap: wrap; gap: .75rem; }
-  .content, .dashboard-content, .main-content { padding-left: .75rem; padding-right: .75rem; }
-  .stats-grid, .cards-grid, .grid, .dashboard-grid { grid-template-columns: 1fr !important; }
-  .two-column, .three-column { grid-template-columns: 1fr !important; }
-  .card, .panel, .section-card { min-width: 0; }
-  table { display: block; width: 100%; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
-  .modal { padding: 12px; align-items: flex-start; overflow-y: auto; }
-  .modal-content { width: 100%; max-width: 520px; max-height: calc(100dvh - 24px); overflow-y: auto; margin: auto; padding: 1.25rem; border-radius: 18px; }
-  .modal-actions { flex-direction: column; }
-  .modal-btn { width: 100%; }
-  input, select, textarea, button { font-size: 16px; }
-  .toolbar, .actions, .filters, .analytics-toolbar { width: 100%; flex-wrap: wrap; }
-  .toolbar > *, .actions > *, .filters > * { flex: 1 1 140px; min-width: 0; }
-  .scms-important-board, .analytics-grid, .analytics-grid.three { grid-template-columns: 1fr !important; }
-  .scms-static-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .analytics-card { min-width: 0; overflow: hidden; }
-  .donut-wrap { flex-wrap: wrap; }
-  .bar-chart { overflow-x: auto; min-width: 0; }
-  .toast { left: 12px; right: 12px; bottom: 12px; min-width: 0; width: auto; }
+/* SCMS premium responsive experience — additive frontend redesign */
+html,body{max-width:100%;}
+
+/* Premium sidebar */
+aside#sidebar-wrapper{
+  width:228px;
+  padding:1rem .72rem;
+  background:linear-gradient(180deg,rgba(248,250,255,.88),rgba(241,245,255,.62));
+  border-right:1px solid rgba(99,102,241,.12);
+  position:relative;
+  transition:width .28s cubic-bezier(.4,0,.2,1),padding .28s ease;
 }
-@media (max-width: 480px) {
-  .app-wrapper { padding: 0; }
-  .app-inner { min-height: 100dvh; border-radius: 0; }
-  .scms-static-grid { grid-template-columns: 1fr; }
-  .login-box { padding: 1.5rem 1rem; }
-  .analytics-card, .scms-info-card { padding: .8rem; }
-  .topbar, .header, .page-header { align-items: flex-start; }
+aside#sidebar-wrapper::after{content:'';position:absolute;right:-1px;top:18px;bottom:18px;width:1px;background:linear-gradient(180deg,transparent,rgba(79,70,229,.18),transparent);pointer-events:none;}
+.brand-logo{padding:8px 9px 16px;margin-bottom:.55rem;}
+.brand-logo i{width:40px;height:40px;border-radius:13px;box-shadow:0 10px 24px rgba(79,70,229,.2);}
+.brand-titles h1{font-size:1.05rem;}
+.brand-titles p{font-size:.62rem;letter-spacing:.11em;}
+.nav-item{position:relative;min-height:43px;padding:.72rem .82rem;border-radius:13px;margin-bottom:.25rem;gap:.78rem;overflow:hidden;}
+.nav-item::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:99px;background:linear-gradient(180deg,#4f46e5,#8b5cf6);transform:scaleY(0);transition:transform .22s ease;}
+.nav-item:hover{background:rgba(255,255,255,.82);transform:translateX(2px);}
+.nav-item.active{background:linear-gradient(100deg,rgba(255,255,255,.98),rgba(238,242,255,.92));border:1px solid rgba(79,70,229,.1);box-shadow:0 7px 18px rgba(31,41,90,.07);}
+.nav-item.active::before{transform:scaleY(1);}
+.nav-item.active i{color:#4f46e5;filter:drop-shadow(0 4px 7px rgba(79,70,229,.18));}
+.sih-logo-slot{margin:.15rem .35rem .75rem!important;}
+
+/* Main workspace refinement */
+main{min-width:0;}
+header{border-bottom:1px solid rgba(99,102,241,.07);}
+.view-section{min-width:0;}
+.card,.analytics-card,.scms-info-card,.finance-kpi,.budget-card,.record-card{overflow:hidden;}
+
+/* Better navigation hierarchy */
+#sidebar-nav{gap:0!important;}
+#sidebar-nav .logout-btn{margin-top:auto;border-top:1px solid rgba(99,102,241,.08);border-radius:13px;}
+
+/* Mobile: compact premium icon rail */
+@media(max-width:900px){
+  aside#sidebar-wrapper{width:78px;padding:.75rem .42rem;}
+  .brand-logo{justify-content:center;padding:7px 2px 14px;}
+  .brand-logo i{width:42px;height:42px;}
+  .brand-titles,.ssav-brand,.sih-logo-copy{display:none!important;}
+  .sih-logo-slot{justify-content:center;margin:.1rem .1rem .65rem!important;padding:.55rem .25rem!important;}
+  .sih-logo-preview{width:42px;height:42px;}
+  .sih-logo-clear{display:none;}
+  .nav-item{justify-content:center;padding:.72rem .35rem;gap:0;min-height:45px;}
+  .nav-item i{width:auto;font-size:1.05rem;}
+  .nav-item{font-size:0;}
+  .nav-item.active::after{content:'';position:absolute;inset:4px;border-radius:11px;border:1px solid rgba(79,70,229,.06);pointer-events:none;}
+  main{padding:1rem 1.05rem 1.5rem;}
+  header{padding:.6rem 0 .8rem;}
+  .header-actions{gap:.5rem;}
+  .search-bar{width:min(270px,45vw);}
+  .scms-command-key{display:none;}
+  .top-row{grid-template-columns:1fr!important;}
+  .middle-row,.bottom-row{grid-template-columns:1fr!important;}
+  .form-grid,.form-grid-compact{grid-template-columns:1fr!important;}
+  .form-field.full,.full-span{grid-column:auto!important;}
+  .team-layout{grid-template-columns:1fr!important;}
+  .team-directory{max-height:none;}
+  .team-member-grid{grid-template-columns:1fr!important;}
+  .team-stats,.team-budget-grid,.team-performance{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .finance-control-grid{grid-template-columns:1fr!important;}
+  .finance-filter-grid{grid-template-columns:1fr!important;}
+  .finance-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .finance-quick-actions{grid-template-columns:1fr!important;}
+  .module-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .analytics-grid,.analytics-grid.three{grid-template-columns:1fr!important;}
+  .scms-important-board{grid-template-columns:1fr!important;}
+  .scms-static-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .chat-shell{grid-template-columns:76px 1fr!important;}
 }
+
+/* Phone layout */
+@media(max-width:600px){
+  body{height:auto;min-height:100vh;overflow:auto;}
+  #login-screen{position:fixed;min-height:100dvh;height:100dvh;padding:14px;overflow-y:auto;}
+  .login-box{width:min(100%,430px);max-width:none;padding:1.65rem 1rem;border-radius:20px;}
+  .login-box h2{font-size:1.55rem;}
+  .app-wrapper{width:100%;min-height:100dvh;height:auto;margin:0;padding:0;border-radius:0;display:block;}
+  .app-wrapper::before{border-radius:0;}
+  .app-inner{min-height:100dvh;height:auto;border-radius:0;overflow:visible;display:flex;}
+  aside#sidebar-wrapper{width:64px;flex:0 0 64px;min-height:100dvh;padding:.65rem .28rem;}
+  .brand-logo{padding-bottom:10px;margin-bottom:.35rem;}
+  .brand-logo i{width:38px;height:38px;font-size:1rem;border-radius:12px;}
+  .sih-logo-slot{border:1px dashed rgba(79,70,229,.18)!important;padding:.35rem .1rem!important;}
+  .sih-logo-preview{width:36px;height:36px;border-radius:10px;}
+  .nav-item{min-height:42px;margin-bottom:.18rem;border-radius:11px;}
+  .nav-item i{font-size:.96rem;}
+  main{padding:.7rem .7rem 1.2rem;overflow:visible;}
+  header{position:sticky;top:0;padding:.55rem 0 .7rem;margin-bottom:.7rem;z-index:30;}
+  .header-profile{gap:.55rem;min-width:0;}
+  .header-profile img{width:40px;height:40px;}
+  .header-profile-text p{font-size:.68rem;}
+  .header-profile-text h4{font-size:.92rem;max-width:125px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .header-actions{width:100%;justify-content:flex-end;flex-wrap:wrap;}
+  header{flex-wrap:wrap;}
+  .search-bar{order:3;width:100%;height:40px;}
+  .icon-btn{width:39px;height:39px;border-radius:11px;}
+  .view-toolbar{align-items:stretch;}
+  .view-toolbar>div:first-child{min-width:0;}
+  .toolbar-actions{width:100%;}
+  .toolbar-actions>*{flex:1 1 120px;min-width:0;}
+  .small-btn{min-height:42px;}
+  .kpi-grid{grid-template-columns:1fr!important;gap:.65rem;}
+  .kpi{padding:.85rem;}
+  .top-row{gap:.7rem!important;}
+  .card{padding:1rem;border-radius:16px;}
+  .scms-static-grid{grid-template-columns:1fr!important;}
+  .analytics-grid,.analytics-grid.three{gap:.7rem;}
+  .donut-wrap{justify-content:center;}
+  .team-filter-row{grid-template-columns:1fr!important;}
+  .team-hero-top{flex-direction:column;}
+  .team-identity{align-items:flex-start;}
+  .team-identity .team-avatar{width:52px;height:52px;flex:0 0 auto;}
+  .team-actions{width:100%;}
+  .team-action{flex:1 1 120px;}
+  .team-stats,.team-budget-grid,.team-performance{grid-template-columns:1fr!important;}
+  .finance-kpi-grid{grid-template-columns:1fr!important;}
+  .finance-action-card{min-height:54px;}
+  .module-grid{grid-template-columns:1fr!important;}
+  .record-card{grid-template-columns:1fr;gap:.75rem;padding:.85rem;}
+  .record-actions{justify-content:flex-start;}
+  .record-actions .small-btn,.record-actions .pill-badge{min-height:38px;}
+  .modal{padding:8px;align-items:flex-start;}
+  .modal-content{width:100%;max-width:none;max-height:calc(100dvh - 16px);margin:auto;padding:1rem;border-radius:18px;}
+  .modal-actions{position:sticky;bottom:0;flex-direction:column;gap:.55rem;padding-top:.75rem;}
+  .modal-btn{width:100%;min-height:46px;}
+  table,.table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .data-table,.analytics-table{min-width:620px;}
+  .chat-shell{height:calc(100dvh - 125px);min-height:450px;grid-template-columns:1fr!important;}
+  .chat-sidebar{display:none;}
+  .chat-bubble-wrap{max-width:84%;}
+  .chat-head{padding:11px 12px;}
+  .chat-messages{padding:15px 10px 10px;}
+  .chat-composer{padding:9px;}
+  #toast-container{left:9px;right:9px;bottom:9px;}
+  .toast{width:100%;min-width:0;}
+  .ssav-watermark{display:none;}
+  .ssav-footer{font-size:.56rem;padding:.7rem .3rem;}
+}
+
+/* Extra-small phones */
+@media(max-width:390px){
+  aside#sidebar-wrapper{width:56px;flex-basis:56px;}
+  .nav-item{min-height:40px;}
+  .nav-item i{font-size:.9rem;}
+  .brand-logo i{width:34px;height:34px;}
+  main{padding:.55rem;}
+  .header-actions{gap:.35rem;}
+  .header-profile-text h4{max-width:105px;}
+  .icon-btn{width:36px;height:36px;}
+  .profile-chip{font-size:.63rem;}
+}
+
+/* Accessibility / motion */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}}
