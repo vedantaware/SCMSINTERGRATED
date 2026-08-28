@@ -1488,7 +1488,7 @@ header{
     <script>
         const API_URL = localStorage.getItem('scms_api_url') ||
             (window.SCMS_CONFIG && window.SCMS_CONFIG.API_URL) ||
-            "http://127.0.0.1:8000/api";
+            window.location.origin + "/api";
         let CURRENT_USER = null;
         let AUTH_TOKEN = null;
         let ALL_MEMBERS = [];
