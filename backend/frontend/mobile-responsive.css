@@ -1,0 +1,40 @@
+/* SCMS mobile responsiveness — additive only */
+html, body { max-width: 100%; }
+@media (max-width: 768px) {
+  body { height: auto; min-height: 100vh; overflow-x: hidden; overflow-y: auto; }
+  #login-screen { position: fixed; min-height: 100dvh; padding: 16px; overflow-y: auto; }
+  .login-box { width: min(100%, 430px); max-width: none; padding: 2rem 1.25rem; border-radius: 20px; }
+  .app-wrapper { margin: 0; width: 100%; min-height: 100dvh; height: auto; border-radius: 0; padding: 8px; display: block; }
+  .app-wrapper::before { border-radius: 0; }
+  .app-inner { width: 100%; min-height: calc(100dvh - 16px); height: auto; border-radius: 18px; overflow: visible; }
+  .app-inner, .app-inner * { max-width: 100%; }
+  .sidebar { width: 100%; max-width: none; position: relative; height: auto; min-height: 0; border-radius: 16px; }
+  .main-content { width: 100%; min-width: 0; overflow: visible; }
+  .topbar, .header, .page-header { flex-wrap: wrap; gap: .75rem; }
+  .content, .dashboard-content, .main-content { padding-left: .75rem; padding-right: .75rem; }
+  .stats-grid, .cards-grid, .grid, .dashboard-grid { grid-template-columns: 1fr !important; }
+  .two-column, .three-column { grid-template-columns: 1fr !important; }
+  .card, .panel, .section-card { min-width: 0; }
+  table { display: block; width: 100%; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+  .modal { padding: 12px; align-items: flex-start; overflow-y: auto; }
+  .modal-content { width: 100%; max-width: 520px; max-height: calc(100dvh - 24px); overflow-y: auto; margin: auto; padding: 1.25rem; border-radius: 18px; }
+  .modal-actions { flex-direction: column; }
+  .modal-btn { width: 100%; }
+  input, select, textarea, button { font-size: 16px; }
+  .toolbar, .actions, .filters, .analytics-toolbar { width: 100%; flex-wrap: wrap; }
+  .toolbar > *, .actions > *, .filters > * { flex: 1 1 140px; min-width: 0; }
+  .scms-important-board, .analytics-grid, .analytics-grid.three { grid-template-columns: 1fr !important; }
+  .scms-static-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .analytics-card { min-width: 0; overflow: hidden; }
+  .donut-wrap { flex-wrap: wrap; }
+  .bar-chart { overflow-x: auto; min-width: 0; }
+  .toast { left: 12px; right: 12px; bottom: 12px; min-width: 0; width: auto; }
+}
+@media (max-width: 480px) {
+  .app-wrapper { padding: 0; }
+  .app-inner { min-height: 100dvh; border-radius: 0; }
+  .scms-static-grid { grid-template-columns: 1fr; }
+  .login-box { padding: 1.5rem 1rem; }
+  .analytics-card, .scms-info-card { padding: .8rem; }
+  .topbar, .header, .page-header { align-items: flex-start; }
+}
