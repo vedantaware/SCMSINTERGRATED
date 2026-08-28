@@ -1,0 +1,30 @@
+name: Enable Supabase PostgreSQL
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'backend/postgres_production_patch.py'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply PostgreSQL production patch
+        run: python backend/postgres_production_patch.py
+      - name: Validate Python
+        run: python -m py_compile backend/main.py
+      - name: Commit patched backend
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add backend/main.py backend/postgres_production_patch.py
+          git diff --cached --quiet || git commit -m 'Use Supabase PostgreSQL in production'
+          git push
