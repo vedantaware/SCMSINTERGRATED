@@ -1,0 +1,35 @@
+name: Fix SCMS Render API URL
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/fix-render-api.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix-api-url:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix frontend API URL
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('backend/frontend/index.html')
+          s = p.read_text(encoding='utf-8')
+          old = 'http://127.0.0.1:8000/api'
+          new = 'window.location.origin + "/api"'
+          if old in s:
+              s = s.replace('"' + old + '"', new)
+              p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backend/frontend/index.html
+          git diff --cached --quiet || git commit -m "Fix frontend API URL for Render"
+          git push
