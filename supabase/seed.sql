@@ -1,0 +1,3 @@
+-- SCMS seed data is already provisioned in the connected project.
+-- The FastAPI startup routine remains the source of the official council roster
+-- when SCMS is run in SQLite fallback mode.
